@@ -1,0 +1,22 @@
+{
+  "name": "water-falls",
+  "version": "1.0.0",
+  "description": "This repo contains the logic for a variation of the water falls problem. It is written in JavaScript",
+  "main": "water-falls.js",
+  "scripts": {
+    "test": "jest test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nehacp/water-falls.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nehacp/water-falls/issues"
+  },
+  "homepage": "https://github.com/nehacp/water-falls#readme",
+  "devDependencies": {
+    "jest": "^22.1.4"
+  }
+}
