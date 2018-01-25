@@ -88,3 +88,8 @@ console.log(waterFalls([2, 3, 5, 3, 4, 6])); // [3, 6, 3]
 console.log(waterFalls([2, 3, 5, 6, 7])); // [0, 0, 0]
 console.log(waterFalls([7, 6, 5, 4, 3])); // [0, 0, 0]
 console.log(waterFalls([2, 3, 4, 3, 1])); // [0, 0, 0]
+
+module.exports = {
+  waterFalls,
+  calculateWater
+}
