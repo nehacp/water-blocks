@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nehacp/water-falls.git"
+    "url": "git+https://github.com/nehacp/water-blocks.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nehacp/water-falls/issues"
+    "url": "https://github.com/nehacp/water-blocks/issues"
   },
-  "homepage": "https://github.com/nehacp/water-falls#readme",
+  "homepage": "https://github.com/nehacp/water-blocks#readme",
   "devDependencies": {
     "jest": "^22.1.4"
   }
