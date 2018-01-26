@@ -81,13 +81,7 @@ Transformation:
 Big O: O(n^2)// worst case it will run a nested loop over the whole array.
 */
 
-console.log(waterFalls([5, 3, 7, 2, 6, 4, 5, 9, 1, 2])); // [3, 8, 11]
-console.log(waterFalls([8, 3, 7, 2, 6, 4, 5, 9,])); // [1, 8, 21]
-console.log(waterFalls([5, 3, 7, 2, 6, 4])); // [3, 5, 4]
-console.log(waterFalls([2, 3, 5, 3, 4, 6])); // [3, 6, 3]
-console.log(waterFalls([2, 3, 5, 6, 7])); // [0, 0, 0]
-console.log(waterFalls([7, 6, 5, 4, 3])); // [0, 0, 0]
-console.log(waterFalls([2, 3, 4, 3, 1])); // [0, 0, 0]
+console.log(waterFalls([]));
 
 module.exports = {
   waterFalls,
