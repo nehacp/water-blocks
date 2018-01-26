@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3333;
 const waterBlocks = require('./water-blocks');
 
+app.use(express.static('client'));
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
