@@ -1,4 +1,4 @@
-This repo contains the logic for a variation of the water falls problem. It is written in JavaScript
+This repo contains the logic for a variation of the water blocks problem. It is written in JavaScript
 
 ## Dependencies
 - None
@@ -6,11 +6,14 @@ This repo contains the logic for a variation of the water falls problem. It is w
 ## Dev Dependencies
 - Jest
 
+
+To install dependencies, use the command below in the terminal
+
 ```
 npm install
 ```
 
-To run tests, use the following command in the terminal
+To run tests, use the command below in the terminal
 
 ```
 npm test
