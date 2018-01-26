@@ -1,4 +1,4 @@
-/* 
+/*
 
 Given an array that represents heights of walls, find the maximum number of water blocks that
 can be trapped between two walls
@@ -12,11 +12,11 @@ Output --> [3, 8, 11] // tuple with index of wall#1, index wall#2 and blocks of 
 Constraints --> None
 Edge Cases --> No blocks (empty array), invalid input
 
-Strategy: Iterate over array and check if next wall is smaller than current and
-  the one after that is larger than the previous one. If yes, continue until you find
-  a wall that is smaller than or equal to the max wall between 2 current; Accumulate water as you go
-  comparing it to previous max water.
-  If no, condition breaks and reset blocks and water collection with previous value of water collection
+Strategy: Iterate over array and check if next wall is smaller than current and the one after that
+is larger than the previous one. If yes, continue until you find
+a wall that is smaller than or equal to the max wall between 2 current; Accumulate water as you go
+comparing it to previous max water. If no, condition breaks and reset blocks and water collection
+with previous value of water collection
 
 Transformation:
   [5, 3, 7, 2, 6, 4, 5, 9, 1, 2]
@@ -34,18 +34,14 @@ Transformation:
 Big O: O(n^2)// worst case it will run a nested loop over the whole array.
 */
 
-
-
-
-
 const calculateWater = (wall, blocks, left, right) => {
-  let grid = wall * ((right - left) + 1);
+  const grid = wall * ((right - left) + 1);
   return grid - ((wall * 2) + blocks);
 };
 
 const waterBlocks = (walls) => {
-  //left and right need to be higher than the middle one
-  //left needs to exist and right needs to exist 
+  // left and right need to be higher than the middle one
+  // left needs to exist and right needs to exist
   if (!Array.isArray(walls)) {
     throw new Error('Invalid Input');
   }
@@ -58,7 +54,7 @@ const waterBlocks = (walls) => {
   let smallerWall;
   let middle;
 
-  for (let left = 0; left < walls.length - 2; left++) {
+  for (let left = 0; left < walls.length - 2; left += 1) {
     right = left + 2; // counter for right wall
     middle = right - 1; // counter for middle wall
 
@@ -68,7 +64,7 @@ const waterBlocks = (walls) => {
       smallerWall = Math.min(walls[left], walls[right]); // find smaller wall
       water = calculateWater(smallerWall, blocks, left, right); // calculate water
 
-      //compare water with previous water value
+      // compare water with previous water value
       if (water > maxWaterBlocks) {
         maxWaterBlocks = water;
         result = [left + 1, right + 1, water];
@@ -79,14 +75,14 @@ const waterBlocks = (walls) => {
       middle = right - 1;
     }
 
-    //reset blocks for next set of walls after while loop
+    // reset blocks for next set of walls after while loop
     blocks = 0;
   }
 
   return result;
-}
+};
 
 module.exports = {
   waterBlocks,
-  calculateWater
-}
+  calculateWater,
+};
