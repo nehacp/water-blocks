@@ -59,31 +59,28 @@ const waterBlocks = (walls) => {
   let middle;
 
   for (let left = 0; left < walls.length - 2; left++) {
-    //check if there is a valid block
-    if (Math.min(walls[left], walls[left + 2] > walls[left + 1])) {
-      right = left + 2; // counter for right wall
-      middle = right - 1; // counter for middle wall
+    right = left + 2; // counter for right wall
+    middle = right - 1; // counter for middle wall
 
-      // loop as long as one of the walls is higher than current middle
-      while (Math.max(walls[left], walls[right]) > walls[middle] && right < walls.length) {
-        blocks += walls[middle]; // accumulate blocks
-        smallerWall = Math.min(walls[left], walls[right]); // find smaller wall
-        water = calculateWater(smallerWall, blocks, left, right); // calculate water
+    // loop as long as one of the walls is higher than current middle
+    while (Math.max(walls[left], walls[right]) > walls[middle] && right < walls.length) {
+      blocks += walls[middle]; // accumulate blocks
+      smallerWall = Math.min(walls[left], walls[right]); // find smaller wall
+      water = calculateWater(smallerWall, blocks, left, right); // calculate water
 
-        //compare water with previous water value
-        if (water > maxWaterBlocks) {
-          maxWaterBlocks = water;
-          result = [left + 1, right + 1, water];
-        }
-
-        // reset current walls
-        right += 1;
-        middle = right - 1;
+      //compare water with previous water value
+      if (water > maxWaterBlocks) {
+        maxWaterBlocks = water;
+        result = [left + 1, right + 1, water];
       }
 
-      //reset blocks for next set of walls after while loop
-      blocks = 0;
+      // reset current walls
+      right += 1;
+      middle = right - 1;
     }
+
+    //reset blocks for next set of walls after while loop
+    blocks = 0;
   }
 
   return result;
