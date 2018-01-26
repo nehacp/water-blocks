@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/maxwater', (req, res) => {
+  console.log('here with request', req.body);
+  res.status(201).json('Came to post');
   /// this is the request handler for returning the answer;
 })
 
