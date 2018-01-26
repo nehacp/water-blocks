@@ -1,10 +1,10 @@
-const { calculateWater, waterBlocks } = require('./water-blocks');
+const { calculateWater, waterBlocks } = require('../server/water-blocks');
 
 test('calculateWater should return a value as expected', () => {
   expect(calculateWater(8, 10, 0, 9)).toEqual(54);
 });
 
-test('calculeWater should return a number', () => {
+test('calculateWater should return a number', () => {
   let result = calculateWater(8, 10, 0, 9)
   expect(typeof result).toBe('number');
 });

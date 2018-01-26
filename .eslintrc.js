@@ -1,3 +1,3 @@
 module.exports = {
-    "extends": "airbnb-base"
+    "extends": "./node_modules/eslint-config-airbnb-base/index.js"
 };

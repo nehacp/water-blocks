@@ -4,7 +4,8 @@
   "description": "This repo contains the logic for a variation of the water falls problem. It is written in JavaScript",
   "main": "water-falls.js",
   "scripts": {
-    "test": "jest test.js"
+    "test": "jest test.js",
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "jest": "^22.1.4"
+    "jest": "^22.1.4",
+    "nodemon": "^1.14.11"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
