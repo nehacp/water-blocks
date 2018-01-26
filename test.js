@@ -1,11 +1,17 @@
 const { calculateWater, waterFalls } = require('./water-falls');
 
-test('Returns value as expected', () => {
+test('calculateWater should return a value as expected', () => {
   expect(calculateWater(8, 10, 0, 9)).toEqual(54);
 });
 
-test('Should return an array', () => {
+test('calculeWater should return a number', () => {
+  let result = calculateWater(8, 10, 0, 9)
+  expect(typeof result).toBe('number');
+});
+
+test('Should return an array when given an empty wall array', () => {
   let result = waterFalls([]);
+  expect(Array.isArray(result)).toBe(true);
   expect(result[0]).toEqual(0);
   expect(result[1]).toEqual(0);
   expect(result[2]).toEqual(0);
