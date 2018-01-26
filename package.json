@@ -4,7 +4,7 @@
   "description": "This repo contains the logic for a variation of the water falls problem. It is written in JavaScript",
   "main": "water-falls.js",
   "scripts": {
-    "test": "jest test.js",
+    "test": "jest tests/test.water-blocks.js",
     "start": "nodemon server/index.js"
   },
   "repository": {
