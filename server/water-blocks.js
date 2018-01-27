@@ -3,6 +3,8 @@ const calculateWater = (wall, blocks, left, right) => {
   return grid - ((wall * 2) + blocks);
 };
 
+// Get the walls that hold the maximum water trapped including the number of water blocks
+
 const waterBlocks = (walls) => {
   // left and right need to be higher than the middle one
   // left needs to exist and right needs to exist
