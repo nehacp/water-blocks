@@ -43,6 +43,23 @@ h3 {
   text-align: center;
 }
 
+.block {
+  border: 0.25px solid #bfbfbf;
+}
+
+.gray-block {
+  background-color: rgba(191, 191, 191, 0.7);
+}
+
+.blue-block {
+  background-color: #00ffff;
+}
+
+.black-block {
+  background-color: #000000;
+  border: 0.25px solid #000000;
+}
+
 
 
 

@@ -2,7 +2,6 @@ const {
   isItWaterBlock,
   colorWallBlock,
   colorWaterBlock,
-  isEmptyBlock,
   addNumberToBlock,
   isItWallBlock,
 } = require('./block-functions');
@@ -34,8 +33,6 @@ const renderBlocks = ({ width, height }, input, result) => {
       } else if (isItWaterBlock(j, result[0], result[1], walls[j - 1], water)) {
         colorWaterBlock(block);
         water -= 1;
-      } else {
-        isEmptyBlock(block);
       }
 
       row.appendChild(block);
