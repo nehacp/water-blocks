@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 app.post('/maxwater', (req, res) => {
   const input = parseInput(req.body.value);
   const result = waterBlocks(input);
-  res.status(201).json(result);
+  res.status(201).json({ input, result });
 });
 
 app.listen(port, () => {
