@@ -1,19 +1,21 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 // ***************** Color Functions ******************** //
-const borderColor = '#bfbfbf';
 
+// Colours wall block
 const colorWallBlock = (wall, left, right, block) => {
   if (left === wall || right === wall) {
     block.setAttribute('style', 'background-color: #000000; border: 0.25px solid, #000000;');
   } else {
-    block.setAttribute('style', `background-color: rgba(191, 191, 191, 0.7); border: 0.25px solid ${borderColor};`);
+    block.setAttribute('style', 'background-color: rgba(191, 191, 191, 0.7); border: 0.25px solid #bfbfbf;');
   }
 };
 
+// Colour water block
 const colorWaterBlock = (block) => {
-  block.setAttribute('style', `background-color: #00ffff; border: 0.25px solid ${borderColor};`);
+  block.setAttribute('style', 'background-color: #00ffff; border: 0.25px solid #bfbfbf;');
 };
 
+// Check if it is a water block
 const isItWaterBlock = (wall, left, right, currentWall, water) => (
   wall > left
   && wall < right
@@ -21,15 +23,18 @@ const isItWaterBlock = (wall, left, right, currentWall, water) => (
   && water > 0
 );
 
+// Adds border to empty box
 const isEmptyBlock = (block) => {
-  block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+  block.setAttribute('style', 'border: 0.25px solid #bfbfbf;');
 };
 
+// Check if it is a wall block
 const isItWallBlock = wall => wall > 0;
 
+// Adds number to block
 const addNumberToBlock = (block, height) => {
   block.innerHTML = height + 1;
-  block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+  block.setAttribute('style', 'border: 0.25px solid #bfbfbf;');
 };
 
 module.exports = {
@@ -42,6 +47,7 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
+// This functions checks validity of input
 const checkInputValidity = (input) => {
   let valid = true;
   const parsedInput = input.split(',');
@@ -56,12 +62,11 @@ const checkInputValidity = (input) => {
   }, []);
 
   if (values.length && valid) return values;
-
   return null;
 };
 
+// clear grid incase previous grid exits
 const clearGrid = () => {
-  // clear grid incase previous grid exits
   const grid = document.querySelector('#grid');
   grid.innerHTML = '';
 };
@@ -103,7 +108,7 @@ const {
   isEmptyBlock,
   addNumberToBlock,
   isItWallBlock,
-} = require('./block-data');
+} = require('./block-functions');
 
 
 // ************** Main Render Functions ************ //
@@ -181,8 +186,8 @@ module.exports = {
 };
 
 
-},{"./block-data":1}],5:[function(require,module,exports){
-const { renderGrid } = require('./render-water-blocks');
+},{"./block-functions":1}],5:[function(require,module,exports){
+const { renderGrid } = require('./render-grid');
 
 // request server for answer to water blocks problem
 const requestWaterBlocksFromServer = (request) => {
@@ -215,4 +220,4 @@ module.exports = {
   processInput,
 };
 
-},{"./render-water-blocks":4}]},{},[3]);
+},{"./render-grid":4}]},{},[3]);
