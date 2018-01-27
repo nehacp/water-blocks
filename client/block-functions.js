@@ -1,6 +1,6 @@
-// ***************** Color Functions ******************** //
+// ***************** Individual Block Functions ******************** //
 
-// Colours wall block
+// Colours wall block black or gray
 const colorWallBlock = (wall, left, right, block) => {
   if (left === wall || right === wall) {
     block.setAttribute('style', 'background-color: #000000; border: 0.25px solid, #000000;');
@@ -9,7 +9,7 @@ const colorWallBlock = (wall, left, right, block) => {
   }
 };
 
-// Colour water block
+// Colour water block blue
 const colorWaterBlock = (block) => {
   block.setAttribute('style', 'background-color: #00ffff; border: 0.25px solid #bfbfbf;');
 };
