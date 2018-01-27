@@ -1,6 +1,5 @@
 const { renderWaterBlocks } = require('./render-water-blocks');
 
-
 // request server for answer to water blocks problem
 const requestWaterBlocksFromServer = (request) => {
   fetch(request)
@@ -24,7 +23,10 @@ const createRequest = (numbers) => {
   return request;
 };
 
+const processInput = (input) => {
+  requestWaterBlocksFromServer(createRequest(input));
+};
+
 module.exports = {
-  requestWaterBlocksFromServer,
-  createRequest,
+  processInput,
 };

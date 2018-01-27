@@ -1,24 +1,3 @@
-
-// this function calculates the width and height of the grid;
-const calculateGridSize = (input) => {
-  const width = input.length + 1;
-  const height = input.reduce((max, block) => {
-    if (block > max) max = block;
-    return max;
-  }, 0) + 1;
-  return { width, height };
-};
-
-// this function renders a saying no water found
-const renderWaterBlocksInfo = (info) => {
-  const div = document.createElement('div');
-  div.innerHTML = info;
-  div.setAttribute('style', 'margin-top: 5px; font-size: 30px');
-  const grid = document.querySelector('#grid');
-  grid.appendChild(div);
-};
-
-
 // this function adds all the blocks to the table
 const addBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
@@ -69,10 +48,31 @@ const createTable = ({ width, height }) => {
   grid.appendChild(table);
 };
 
+// this function renders a saying no water found
+const renderWaterBlocksInfo = (info) => {
+  const div = document.createElement('div');
+  div.innerHTML = info;
+  div.setAttribute('style', 'margin-top: 5px; font-size: 30px');
+  const grid = document.querySelector('#grid');
+  grid.appendChild(div);
+};
+
+// this function calculates the width and height of the grid;
+const calculateGridSize = (input) => {
+  const width = input.length + 1;
+  const height = input.reduce((max, block) => {
+    if (block > max) {
+      max = block;
+    }
+    return max;
+  }, 0) + 1;
+  return { width, height };
+};
+
 // this function handles the response received from the server
 const renderWaterBlocks = ({ input, result }) => {
   const { width, height } = calculateGridSize(input);
-  
+
   if (!result[2]) {
     renderWaterBlocksInfo('No trapped water');
   } else {

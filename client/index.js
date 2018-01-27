@@ -1,4 +1,4 @@
-const { requestWaterBlocksFromServer, createRequest } = require('./server-request');
+const { processInput } = require('./server-request');
 
 // This function handles the submit button for input
 const handleSubmit = (event) => {
@@ -24,7 +24,7 @@ const handleSubmit = (event) => {
 
   if (values.length) {
     if (valid) {
-      requestWaterBlocksFromServer(createRequest(values));
+      processInput(values);
     } else {
       alert('Enter a valid input');
     }
@@ -32,5 +32,9 @@ const handleSubmit = (event) => {
 };
 
 // Attach event listener to button
-const button = document.querySelector('button');
-button.addEventListener('click', handleSubmit);
+const onLoad = () => {
+  const button = document.querySelector('button');
+  button.addEventListener('click', handleSubmit);
+};
+
+window.onload = onLoad;
