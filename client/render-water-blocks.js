@@ -1,5 +1,5 @@
 // this function adds all the blocks to the table
-const addBlocks = ({ width, height }, input, result) => {
+const renderBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
   const walls = input.slice();
   let water = result[2];
@@ -80,7 +80,7 @@ const renderWaterBlocks = ({ input, result }) => {
   }
 
   createTable({ width, height });
-  addBlocks({ width, height }, input, result);
+  renderBlocks({ width, height }, input, result);
 };
 
 module.exports = {
