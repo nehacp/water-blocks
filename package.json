@@ -5,7 +5,8 @@
   "main": "water-falls.js",
   "scripts": {
     "test": "jest tests/test.water-blocks.js",
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "client-bundle": "browserify client/index.js > client/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/nehacp/water-blocks#readme",
   "devDependencies": {
+    "browserify": "^15.2.0",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
