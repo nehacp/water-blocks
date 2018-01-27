@@ -13,7 +13,7 @@ const calculateGridSize = (input) => {
 const renderWaterBlocksInfo = (info) => {
   const div = document.createElement('div');
   div.innerHTML = info;
-  div.setAttribute('style', 'margin-top: 5px');
+  div.setAttribute('style', 'margin-top: 5px; font-size: 30px');
   const grid = document.querySelector('#grid');
   grid.appendChild(div);
 };
@@ -24,11 +24,6 @@ const addBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
   const walls = input.slice();
   let water = result[2];
-  if (!water) {
-    renderWaterBlocksInfo('No trapped water');
-  } else {
-    renderWaterBlocksInfo(`Maximum trapped water blocks - ${water}`);
-  }
 
   const borderColor = '#bfbfbf';
 
@@ -77,6 +72,13 @@ const createTable = ({ width, height }) => {
 // this function handles the response received from the server
 const renderWaterBlocks = ({ input, result }) => {
   const { width, height } = calculateGridSize(input);
+  
+  if (!result[2]) {
+    renderWaterBlocksInfo('No trapped water');
+  } else {
+    renderWaterBlocksInfo(`Maximum trapped water blocks - ${result[2]}`);
+  }
+
   createTable({ width, height });
   addBlocks({ width, height }, input, result);
 };

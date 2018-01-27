@@ -2,11 +2,17 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
+  font-family: "Open Sans", sans-serif;
 }
 
 #main {
   text-align: center;
   margin: auto;
+}
+
+#main-form {
+  position: relative;
+  margin: 1%;
 }
 
 table {
@@ -22,4 +28,16 @@ tr, td {
   height: 34px;
   border-collapse: collapse;
 }
+
+input {
+  width: 30%;
+  font-size: 15px;
+}
+
+button {
+  font-size: 15px;
+}
+
+
+
 
