@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3333;
 const { waterBlocks } = require('./water-blocks');
-const { parseInput } = require('./helpers');
 
 app.use(express.static('client'));
 
@@ -15,9 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/maxwater', (req, res) => {
-  const input = parseInput(req.body.value);
-  const result = waterBlocks(input);
-  res.status(201).json({ input, result });
+  const result = waterBlocks(req.body.value);
+  res.status(201).json({ input: req.body.value, result });
 });
 
 app.listen(port, () => {
