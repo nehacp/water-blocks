@@ -1,4 +1,4 @@
-const { renderWaterBlocks } = require('./render-water-blocks');
+const { renderGrid } = require('./render-grid');
 
 // request server for answer to water blocks problem
 const requestWaterBlocksFromServer = (request) => {
@@ -7,7 +7,7 @@ const requestWaterBlocksFromServer = (request) => {
       if (response.status === 201) return response.json();
       throw new Error('Unexpected Response');
     })
-    .then(result => renderWaterBlocks(result))
+    .then(result => renderGrid(result))
     .catch(error => console.error('Error with request', error));
 };
 

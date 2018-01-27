@@ -1,18 +1,50 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-const { processInput } = require('./server-request');
+// ***************** Color Functions ******************** //
+const borderColor = '#bfbfbf';
 
-// This function handles the submit button for input
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const input = document.getElementsByName('numbers')[0];
-  const { value } = input;
-  input.value = '';
+const colorWallBlock = (wall, left, right, block) => {
+  if (left === wall || right === wall) {
+    block.setAttribute('style', 'background-color: #000000; border: 0.25px solid, #000000;');
+  } else {
+    block.setAttribute('style', `background-color: rgba(191, 191, 191, 0.7); border: 0.25px solid ${borderColor};`);
+  }
+};
 
+const colorWaterBlock = (block) => {
+  block.setAttribute('style', `background-color: #00ffff; border: 0.25px solid ${borderColor};`);
+};
+
+const isItWaterBlock = (wall, left, right, currentWall, water) => (
+  wall > left
+  && wall < right
+  && currentWall <= 0
+  && water > 0
+);
+
+const isEmptyBlock = (block) => {
+  block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+};
+
+const isItWallBlock = wall => wall > 0;
+
+const addNumberToBlock = (block, height) => {
+  block.innerHTML = height + 1;
+  block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+};
+
+module.exports = {
+  colorWallBlock,
+  colorWaterBlock,
+  isItWaterBlock,
+  isEmptyBlock,
+  isItWallBlock,
+  addNumberToBlock,
+};
+
+},{}],2:[function(require,module,exports){
+const checkInputValidity = (input) => {
   let valid = true;
-  const parsedInput = value.split(',');
-
-  const grid = document.querySelector('#grid');
-  grid.innerHTML = '';
+  const parsedInput = input.split(',');
 
   const values = parsedInput.reduce((result, digit) => {
     if (Number.isNaN(Number(digit))) {
@@ -23,13 +55,36 @@ const handleSubmit = (event) => {
     return result;
   }, []);
 
-  if (values.length) {
-    if (valid) {
-      processInput(values);
-    } else {
-      alert('Enter a valid input');
-    }
-  }
+  if (values.length && valid) return values;
+
+  return null;
+};
+
+const clearGrid = () => {
+  // clear grid incase previous grid exits
+  const grid = document.querySelector('#grid');
+  grid.innerHTML = '';
+};
+
+module.exports = {
+  checkInputValidity,
+  clearGrid,
+};
+
+},{}],3:[function(require,module,exports){
+const { processInput } = require('./server-request');
+const { checkInputValidity, clearGrid } = require('./helpers.js');
+
+// This function handles the submit button for input
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const input = document.getElementsByName('numbers')[0];
+  const { value } = input;
+  input.value = '';
+  clearGrid();
+  const validInput = checkInputValidity(value);
+  if (validInput) processInput(validInput);
+  if (!validInput) alert('Enter a valid input');
 };
 
 // Attach event listener to button
@@ -40,44 +95,47 @@ const onLoad = () => {
 
 window.onload = onLoad;
 
-},{"./server-request":3}],2:[function(require,module,exports){
+},{"./helpers.js":2,"./server-request":5}],4:[function(require,module,exports){
+const {
+  isItWaterBlock,
+  colorWallBlock,
+  colorWaterBlock,
+  isEmptyBlock,
+  addNumberToBlock,
+  isItWallBlock,
+} = require('./block-data');
+
+
+// ************** Main Render Functions ************ //
+
 // this function adds all the blocks to the table
 const renderBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
   const walls = input.slice();
   let water = result[2];
 
-  const borderColor = '#bfbfbf';
-
-  // blocks for height
+  // loop for height
   for (let i = 0; i < height; i += 1) {
     const row = document.createElement('tr');
-    let firstCreated = false;
+    let firstBlock = true;
 
-    // blocks for width
+    // loop for width
     for (let j = 0; j < width; j += 1) {
       const block = document.createElement('td');
       block.classList.add('block');
-
-      if (!firstCreated) {
-        block.innerHTML = i + 1;
-        firstCreated = true;
-        block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
-      } else if (walls[j - 1] > 0) { 
-        if (result[0] === j || result[1] === j) {
-          block.setAttribute('style', 'background-color: #000000; border: 0.25px solid, #000000;');
-        } else {
-          block.setAttribute('style', `background-color: rgba(191, 191, 191, 0.7); border: 0.25px solid ${borderColor};`);
-        }
+      if (firstBlock) {
+        addNumberToBlock(block, i);
+        firstBlock = false;
+      } else if (isItWallBlock(walls[j - 1])) {
+        colorWallBlock(j, result[0], result[1], block);
         walls[j - 1] -= 1;
-      } else if (j > result[0] && j < result[1]
-        && walls[j - 1] <= 0
-        && water > 0) {
-        block.setAttribute('style', `background-color: #00ffff; border: 0.25px solid ${borderColor};`);
+      } else if (isItWaterBlock(j, result[0], result[1], walls[j - 1], water)) {
+        colorWaterBlock(block);
         water -= 1;
       } else {
-        block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+        isEmptyBlock(block);
       }
+
       row.appendChild(block);
     }
 
@@ -86,7 +144,7 @@ const renderBlocks = ({ width, height }, input, result) => {
 };
 
 // this function creates a table
-const createTable = ({ width, height }) => {
+const renderTable = ({ width, height }) => {
   const grid = document.querySelector('#grid');
   const table = document.createElement('table');
   table.setAttribute('style', `width: ${(width * 37)}px; height: ${(height * 37)}px`);
@@ -103,7 +161,7 @@ const renderWaterBlocksInfo = (info) => {
 };
 
 // this function handles the response received from the server
-const renderWaterBlocks = ({ input, result }) => {
+const renderGrid = ({ input, result }) => {
   const width = input.length + 1;
   const height = Math.max(...input) + 1;
   const water = result[2];
@@ -114,17 +172,17 @@ const renderWaterBlocks = ({ input, result }) => {
     renderWaterBlocksInfo(`Maximum trapped water blocks - ${water}`);
   }
 
-  createTable({ width, height });
+  renderTable({ width, height });
   renderBlocks({ width, height }, input, result);
 };
 
 module.exports = {
-  renderWaterBlocks,
+  renderGrid,
 };
 
 
-},{}],3:[function(require,module,exports){
-const { renderWaterBlocks } = require('./render-water-blocks');
+},{"./block-data":1}],5:[function(require,module,exports){
+const { renderGrid } = require('./render-water-blocks');
 
 // request server for answer to water blocks problem
 const requestWaterBlocksFromServer = (request) => {
@@ -133,7 +191,7 @@ const requestWaterBlocksFromServer = (request) => {
       if (response.status === 201) return response.json();
       throw new Error('Unexpected Response');
     })
-    .then(result => renderWaterBlocks(result))
+    .then(result => renderGrid(result))
     .catch(error => console.error('Error with request', error));
 };
 
@@ -157,4 +215,4 @@ module.exports = {
   processInput,
 };
 
-},{"./render-water-blocks":2}]},{},[1]);
+},{"./render-water-blocks":4}]},{},[3]);

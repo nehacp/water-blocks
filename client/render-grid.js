@@ -1,40 +1,43 @@
+const {
+  isItWaterBlock,
+  colorWallBlock,
+  colorWaterBlock,
+  isEmptyBlock,
+  addNumberToBlock,
+  isItWallBlock,
+} = require('./block-functions');
+
+
+// ************** Main Render Functions ************ //
+
 // this function adds all the blocks to the table
 const renderBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
   const walls = input.slice();
   let water = result[2];
 
-  const borderColor = '#bfbfbf';
-
-  // blocks for height
+  // loop for height
   for (let i = 0; i < height; i += 1) {
     const row = document.createElement('tr');
-    let firstCreated = false;
+    let firstBlock = true;
 
-    // blocks for width
+    // loop for width
     for (let j = 0; j < width; j += 1) {
       const block = document.createElement('td');
       block.classList.add('block');
-
-      if (!firstCreated) {
-        block.innerHTML = i + 1;
-        firstCreated = true;
-        block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
-      } else if (walls[j - 1] > 0) { 
-        if (result[0] === j || result[1] === j) {
-          block.setAttribute('style', 'background-color: #000000; border: 0.25px solid, #000000;');
-        } else {
-          block.setAttribute('style', `background-color: rgba(191, 191, 191, 0.7); border: 0.25px solid ${borderColor};`);
-        }
+      if (firstBlock) {
+        addNumberToBlock(block, i);
+        firstBlock = false;
+      } else if (isItWallBlock(walls[j - 1])) {
+        colorWallBlock(j, result[0], result[1], block);
         walls[j - 1] -= 1;
-      } else if (j > result[0] && j < result[1]
-        && walls[j - 1] <= 0
-        && water > 0) {
-        block.setAttribute('style', `background-color: #00ffff; border: 0.25px solid ${borderColor};`);
+      } else if (isItWaterBlock(j, result[0], result[1], walls[j - 1], water)) {
+        colorWaterBlock(block);
         water -= 1;
       } else {
-        block.setAttribute('style', `border: 0.25px solid ${borderColor};`);
+        isEmptyBlock(block);
       }
+
       row.appendChild(block);
     }
 
@@ -43,7 +46,7 @@ const renderBlocks = ({ width, height }, input, result) => {
 };
 
 // this function creates a table
-const createTable = ({ width, height }) => {
+const renderTable = ({ width, height }) => {
   const grid = document.querySelector('#grid');
   const table = document.createElement('table');
   table.setAttribute('style', `width: ${(width * 37)}px; height: ${(height * 37)}px`);
@@ -60,7 +63,7 @@ const renderWaterBlocksInfo = (info) => {
 };
 
 // this function handles the response received from the server
-const renderWaterBlocks = ({ input, result }) => {
+const renderGrid = ({ input, result }) => {
   const width = input.length + 1;
   const height = Math.max(...input) + 1;
   const water = result[2];
@@ -71,11 +74,11 @@ const renderWaterBlocks = ({ input, result }) => {
     renderWaterBlocksInfo(`Maximum trapped water blocks - ${water}`);
   }
 
-  createTable({ width, height });
+  renderTable({ width, height });
   renderBlocks({ width, height }, input, result);
 };
 
 module.exports = {
-  renderWaterBlocks,
+  renderGrid,
 };
 

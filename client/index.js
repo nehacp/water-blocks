@@ -1,4 +1,5 @@
 const { processInput } = require('./server-request');
+const { checkInputValidity, clearGrid } = require('./helpers.js');
 
 // This function handles the submit button for input
 const handleSubmit = (event) => {
@@ -6,29 +7,10 @@ const handleSubmit = (event) => {
   const input = document.getElementsByName('numbers')[0];
   const { value } = input;
   input.value = '';
-
-  let valid = true;
-  const parsedInput = value.split(',');
-
-  const grid = document.querySelector('#grid');
-  grid.innerHTML = '';
-
-  const values = parsedInput.reduce((result, digit) => {
-    if (Number.isNaN(Number(digit))) {
-      valid = false;
-    } else if (digit !== ' ' && digit !== '') {
-      result.push(Number(digit));
-    }
-    return result;
-  }, []);
-
-  if (values.length) {
-    if (valid) {
-      processInput(values);
-    } else {
-      alert('Enter a valid input');
-    }
-  }
+  clearGrid();
+  const validInput = checkInputValidity(value);
+  if (validInput) processInput(validInput);
+  if (!validInput) alert('Enter a valid input');
 };
 
 // Attach event listener to button
