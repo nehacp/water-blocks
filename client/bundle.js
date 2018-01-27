@@ -42,7 +42,7 @@ window.onload = onLoad;
 
 },{"./server-request":3}],2:[function(require,module,exports){
 // this function adds all the blocks to the table
-const addBlocks = ({ width, height }, input, result) => {
+const renderBlocks = ({ width, height }, input, result) => {
   const table = document.querySelector('table');
   const walls = input.slice();
   let water = result[2];
@@ -115,7 +115,7 @@ const calculateGridSize = (input) => {
 // this function handles the response received from the server
 const renderWaterBlocks = ({ input, result }) => {
   const { width, height } = calculateGridSize(input);
-  
+
   if (!result[2]) {
     renderWaterBlocksInfo('No trapped water');
   } else {
@@ -123,7 +123,7 @@ const renderWaterBlocks = ({ input, result }) => {
   }
 
   createTable({ width, height });
-  addBlocks({ width, height }, input, result);
+  renderBlocks({ width, height }, input, result);
 };
 
 module.exports = {
