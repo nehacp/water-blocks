@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest tests/*.js",
     "start": "nodemon server/index.js",
-    "client-bundle": "browserify client/index.js > client/bundle.js"
+    "client-bundle": "browserify client/index.js > client/bundle/bundle.js"
   },
   "repository": {
     "type": "git",

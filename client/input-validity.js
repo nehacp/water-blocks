@@ -16,13 +16,6 @@ const checkInputValidity = (input) => {
   return null;
 };
 
-// clear grid incase previous grid exits
-const clearGrid = () => {
-  const grid = document.querySelector('#grid');
-  grid.innerHTML = '';
-};
-
 module.exports = {
   checkInputValidity,
-  clearGrid,
 };

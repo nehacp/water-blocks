@@ -1,5 +1,11 @@
 const { processInput } = require('./server-request');
-const { checkInputValidity, clearGrid } = require('./helpers.js');
+const { checkInputValidity } = require('./input-validity.js');
+
+// clear grid incase previous grid exits
+const clearGrid = () => {
+  const grid = document.querySelector('#grid');
+  grid.innerHTML = '';
+};
 
 // This function handles the submit button for input
 const handleSubmit = (event) => {

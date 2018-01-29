@@ -16,10 +16,10 @@ const colorWaterBlock = (block) => {
 };
 
 // Check if it is a water block
-const isItWaterBlock = (wall, left, right, currentWall, water) => (
+const isItWaterBlock = (wall, left, right, height, water) => (
   wall > left
   && wall < right
-  && currentWall <= 0
+  && height <= 0
   && water > 0
 );
 
@@ -40,38 +40,14 @@ module.exports = {
 };
 
 },{}],2:[function(require,module,exports){
-// This functions checks validity of input
-const checkInputValidity = (input) => {
-  let valid = true;
-  const parsedInput = input.split(',');
-
-  const values = parsedInput.reduce((result, digit) => {
-    if (Number.isNaN(Number(digit))) {
-      valid = false;
-    } else if (digit !== ' ' && digit !== '') {
-      result.push(Number(digit));
-    }
-    return result;
-  }, []);
-
-  if (values.length && valid) return values;
-  return null;
-};
+const { processInput } = require('./server-request');
+const { checkInputValidity } = require('./input-validity.js');
 
 // clear grid incase previous grid exits
 const clearGrid = () => {
   const grid = document.querySelector('#grid');
   grid.innerHTML = '';
 };
-
-module.exports = {
-  checkInputValidity,
-  clearGrid,
-};
-
-},{}],3:[function(require,module,exports){
-const { processInput } = require('./server-request');
-const { checkInputValidity, clearGrid } = require('./helpers.js');
 
 // This function handles the submit button for input
 const handleSubmit = (event) => {
@@ -93,7 +69,30 @@ const onLoad = () => {
 
 window.onload = onLoad;
 
-},{"./helpers.js":2,"./server-request":5}],4:[function(require,module,exports){
+},{"./input-validity.js":3,"./server-request":5}],3:[function(require,module,exports){
+// This functions checks validity of input
+const checkInputValidity = (input) => {
+  let valid = true;
+  const parsedInput = input.split(',');
+
+  const values = parsedInput.reduce((result, digit) => {
+    if (Number.isNaN(Number(digit))) {
+      valid = false;
+    } else if (digit !== ' ' && digit !== '') {
+      result.push(Number(digit));
+    }
+    return result;
+  }, []);
+
+  if (values.length && valid) return values;
+  return null;
+};
+
+module.exports = {
+  checkInputValidity,
+};
+
+},{}],4:[function(require,module,exports){
 const {
   isItWaterBlock,
   colorWallBlock,
@@ -173,6 +172,9 @@ const renderGrid = ({ input, result }) => {
 
 module.exports = {
   renderGrid,
+  renderBlocks,
+  renderTable,
+  renderWaterBlocksInfo,
 };
 
 
@@ -208,6 +210,8 @@ const processInput = (input) => {
 
 module.exports = {
   processInput,
+  createRequest,
+  requestWaterBlocksFromServer,
 };
 
-},{"./render-grid":4}]},{},[3]);
+},{"./render-grid":4}]},{},[2]);
