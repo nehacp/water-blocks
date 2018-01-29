@@ -15,10 +15,10 @@ const colorWaterBlock = (block) => {
 };
 
 // Check if it is a water block
-const isItWaterBlock = (wall, left, right, currentWall, water) => (
+const isItWaterBlock = (wall, left, right, height, water) => (
   wall > left
   && wall < right
-  && currentWall <= 0
+  && height <= 0
   && water > 0
 );
 

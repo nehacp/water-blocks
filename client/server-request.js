@@ -29,4 +29,6 @@ const processInput = (input) => {
 
 module.exports = {
   processInput,
+  createRequest,
+  requestWaterBlocksFromServer,
 };

@@ -77,5 +77,8 @@ const renderGrid = ({ input, result }) => {
 
 module.exports = {
   renderGrid,
+  renderBlocks,
+  renderTable,
+  renderWaterBlocksInfo,
 };
 
