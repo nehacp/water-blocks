@@ -68,8 +68,3 @@ test('Should return right value for random multiple tests', () => {
   expect(result3[1]).toEqual(8);
   expect(result3[2]).toEqual(21);
 });
-
-// unsure why this test is failing
-// test('WaterBlocks should throw an error for invalid input', () => {
-//   expect(waterBlocks(3)).toThrow(Error);
-// })
